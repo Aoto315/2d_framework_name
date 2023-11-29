@@ -31,6 +31,7 @@ public class sotulogController {
 
 		//変数をとってif文で比較しログインする
 		//成功の場合はhomeへ、失敗の場合はngへ
+		//本番はselect文で検索する
 		redirectAttributes.addFlashAttribute("id", id);
 		redirectAttributes.addFlashAttribute("pw", pw);
 		if (id.equals("kokuri") && pw.equals("1920")) {
@@ -40,23 +41,24 @@ public class sotulogController {
 			return "redirect:/sotung";
 		}
 	}
+
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 	//idをsotulogからyayakuへ
-//	@PostMapping("/sotulog")
-//	public String processSotulogInput(String id, HttpSession session) {
-//		// セッションにユーザーの入力を保存
-//		session.setAttribute("id", id);
-//		return "redirect:/yoyaku";
-//	}
+	//	@PostMapping("/sotulog")
+	//	public String processSotulogInput(String id, HttpSession session) {
+	//		// セッションにユーザーの入力を保存
+	//		session.setAttribute("id", id);
+	//		return "redirect:/yoyaku";
+	//	}
 
-//	@GetMapping("/yoyaku")
-//	public String showSotuhome(Model model, HttpSession session) {
-//		// セッションからユーザーの入力を取得
-//		String id = (String) session.getAttribute("id");
-//		model.addAttribute("id", id);
-//		return "yoyaku";
-//	}
+	//	@GetMapping("/yoyaku")
+	//	public String showSotuhome(Model model, HttpSession session) {
+	//		// セッションからユーザーの入力を取得
+	//		String id = (String) session.getAttribute("id");
+	//		model.addAttribute("id", id);
+	//		return "yoyaku";
+	//	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,10 +81,6 @@ public class sotulogController {
 		return "redirect:/sotusinkikanryou";
 	}
 
-	//ファイルアップロード
-
-	//次のページに飛ぶ所
-
 	//ホーム画面
 	@RequestMapping(path = "/sotuhome", method = RequestMethod.GET)
 	public String home() {
@@ -103,17 +101,62 @@ public class sotulogController {
 		return "sotung";
 	}
 
+	//クラス選択画面
 	@RequestMapping(path = "/kurasu", method = RequestMethod.GET)
 	public String kurasu() {
 		return "kurasu";
 	}
+
+	//予約詳細画面
+	@RequestMapping(path = "/yoyaku", method = RequestMethod.GET)
+	public String yoyaku() {
+		return "yoyaku";
+	}
+
+	//予約ok画面
+	@RequestMapping(path = "/yoyakuok", method = RequestMethod.GET)
+	public String yoyakuok() {
+		return "yoyakuok";
+	}
 	
+	//ログ
+		@RequestMapping(path = "/log", method = RequestMethod.GET)
+		public String log() {
+			return "log";
+		}
+
+
+	//ログアウト画面
+	@RequestMapping(path = "/sotulogout", method = RequestMethod.GET)
+	public String sotulogout() {
+		return "sotulogout";
+	}
+
+	//管理者ログイン画面
 	@RequestMapping(path = "/kanrilog", method = RequestMethod.GET)
 	public String kanrilog() {
 		return "kanrilog";
 	}
 
-	
+	@RequestMapping(path = "/kanrilog", method = RequestMethod.POST)
+	public String kanrilog(String id, String pw, RedirectAttributes redirectAttributes) {
+
+		//ページを跨ぎたい時は、
+		//「redirect:/xxx」を使って移動先のGETメソッドのURLを使う。
+
+		//変数をとってif文で比較しログインする
+		//成功の場合はkurasuへ、失敗の場合はngへ
+		//本番はselect文で検索する
+		redirectAttributes.addFlashAttribute("id", id);
+		redirectAttributes.addFlashAttribute("pw", pw);
+		if (id.equals("kokuri") && pw.equals("1920")) {
+			return "redirect:/kurasu";
+		} else {
+			System.out.println("test");
+			return "redirect:/sotung";
+		}
+	}
+
 	//新規登録完了画面
 	@RequestMapping(path = "/sotusinkikanryou", method = RequestMethod.GET)
 	public String sixthsecond() {
