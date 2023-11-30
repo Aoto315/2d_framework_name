@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MergeHellController {
 	public static void main(String[] args) {
-		//kadaiA();
+		kadaiA();
 		kadaiB();
 	}
 
